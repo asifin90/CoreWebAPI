@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.Net.Http;
@@ -54,8 +54,8 @@ namespace ConsoleApp1
             objReq.Shipment.ShipFrom.Address.PostalCode = "30067";
             objReq.Shipment.ShipFrom.Address.CountryCode = "US";
             objReq.Shipment.Service = new Service();
-            objReq.Shipment.Service.Code = "03";
-            objReq.Shipment.Service.Description = "Ground";
+            objReq.Shipment.Service.Code = "02";
+            objReq.Shipment.Service.Description = "2nd Day Air";
             objReq.Shipment.ShipmentTotalWeight = new ShipmentTotalWeight();
             objReq.Shipment.ShipmentTotalWeight.UnitOfMeasurement = new UnitOfMeasurement();
             objReq.Shipment.ShipmentTotalWeight.UnitOfMeasurement.Code = "LBS";
@@ -75,16 +75,21 @@ namespace ConsoleApp1
             objReq.Shipment.Package.PackageWeight.UnitOfMeasurement = new UnitOfMeasurement();
             objReq.Shipment.Package.PackageWeight.UnitOfMeasurement.Code = "LBS";
             objReq.Shipment.Package.PackageWeight.Weight = "7";
+            objReq.Shipment.DeliveryTimeInformation = new DeliveryTimeInformation();
+            objReq.Shipment.DeliveryTimeInformation.PackageBillType = "03";
+            objReq.Shipment.DeliveryTimeInformation.Pickup = new Pickup();
+            objReq.Shipment.DeliveryTimeInformation.Pickup.Date = "20210909";
+            objReq.Shipment.DeliveryTimeInformation.Pickup.Time = "1130";
             return objReq;
         }
 
 
         static void demo3()
         {
-            var client = new RestClient("https://wwwcie.ups.com/ship/v1/rating/Rate");
+            var client = new RestClient("https://wwwcie.ups.com/ship/v1/rating/Ratetimeintransit");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
-            request.AddHeader("AccessLicenseNumber", "AccountNumber");
+            request.AddHeader("AccessLicenseNumber", "Num");
             request.AddHeader("Password", "PWD");
             request.AddHeader("Username", "User");
             request.AddHeader("Content-Type", "application/json");
