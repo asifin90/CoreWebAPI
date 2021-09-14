@@ -101,6 +101,79 @@ namespace ConsoleApp1
             IRestResponse response = client.Execute(request);
             Console.WriteLine(response.Content);
         }
+        
+         static void TimeInTransit()
+        {
+            var client = new RestClient("https://wwwcie.ups.com/ship/v1/shipments/transittimes");
+            client.Timeout = -1;
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("AccessLicenseNumber", "CDA387C04F6A9C15");
+            request.AddHeader("Password", "Capgemini2021");
+            request.AddHeader("Username", "LucasProject");
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("transactionSrc", "transaction source");
+            request.AddHeader("transId", "transaction id");
+            request.AddHeader("Content-Type", "application/json");
+            var body = BindTimeInTransit(); //@"{" + "\n" +            @"""originCountryCode"":""US""," + "\n" +            @"""originStateProvince"":""""," + "\n" +            @"""originCityName"":""""," + "\n" +            @"""originTownName"":""""," + "\n" +            @"""originPostalCode"":""30067""," + "\n" +            @"""destinationCountryCode"":""US""," + "\n" +            @"""destinationStateProvince"":""""," + "\n" +            @"""destinationCityName"":""""," + "\n" +            @"""destinationTownName"":""""," + "\n" +            @"""destinationPostalCode"":""95113""," + "\n" +            @"""weight"":""10.0""," + "\n" +            @"""weightUnitOfMeasure"":""kgs""," + "\n" +            @"""shipmentContentsValue"":""10""," + "\n" +            @"""shipmentContentsCurrencyCode"":""EUR""," + "\n" +            @"""billType"":""03""," + "\n" +            @"""requestType"":""D""," + "\n" +            @"""shipDate"":""2021-09-29""," + "\n" +            @"""shipTime"":""17:00:00""," + "\n" +            @"""residentialIndicator"":""01""," + "\n" +            @"""numberOfPackages"":""1""," + "\n" +            @"""returnUnfilteredServices"": false," + "\n" +            @"""returnHeavyGoodsServices"": true," + "\n" +            @"""dropOffAtFacilityIndicator"": 1," + "\n" +            @"""holdForPickupIndicator"": 1" + "\n" +            @"} " + "\n" +            @"";
+            request.AddParameter("application/json", body, ParameterType.RequestBody);
+            IRestResponse response = client.Execute(request);
+            Console.WriteLine(response.Content);
+        }
+
+        static string BindTimeInTransit()
+        {
+            TimeInTransitRequest objTimeInTransitRequest = new TimeInTransitRequest();
+
+            objTimeInTransitRequest.originCountryCode = "US";
+            objTimeInTransitRequest.originPostalCode = "30067";
+            objTimeInTransitRequest.destinationCountryCode = "US";
+            objTimeInTransitRequest.destinationPostalCode = "30067";
+
+            objTimeInTransitRequest.weight = "10.0";
+            objTimeInTransitRequest.weightUnitOfMeasure = "kgs";
+            objTimeInTransitRequest.shipmentContentsValue = "10";
+            objTimeInTransitRequest.shipmentContentsCurrencyCode = "EUR";
+            objTimeInTransitRequest.billType = "03";
+            objTimeInTransitRequest.requestType = "D";
+            objTimeInTransitRequest.shipDate = "2021-09-14";
+            objTimeInTransitRequest.shipTime = "17:00:00";
+            objTimeInTransitRequest.residentialIndicator = "01";
+            objTimeInTransitRequest.numberOfPackages = "1";
+            objTimeInTransitRequest.returnUnfilteredServices = false;
+            objTimeInTransitRequest.returnHeavyGoodsServices = true;
+            objTimeInTransitRequest.dropOffAtFacilityIndicator = 1;
+            objTimeInTransitRequest.holdForPickupIndicator = 1;
+            return JsonConvert.SerializeObject(objTimeInTransitRequest);
+        }
+        
+    }
+    
+     public class TimeInTransitRequest
+    {
+        public string originCountryCode { get; set; }
+        public string originStateProvince { get; set; }
+        public string originCityName { get; set; }
+        public string originTownName { get; set; }
+        public string originPostalCode { get; set; }
+        public string destinationCountryCode { get; set; }
+        public string destinationStateProvince { get; set; }
+        public string destinationCityName { get; set; }
+        public string destinationTownName { get; set; }
+        public string destinationPostalCode { get; set; }
+        public string weight { get; set; }
+        public string weightUnitOfMeasure { get; set; }
+        public string shipmentContentsValue { get; set; }
+        public string shipmentContentsCurrencyCode { get; set; }
+        public string billType { get; set; }
+        public string requestType { get; set; }
+        public string shipDate { get; set; }
+        public string shipTime { get; set; }
+        public string residentialIndicator { get; set; }
+        public string numberOfPackages { get; set; }
+        public bool returnUnfilteredServices { get; set; }
+        public bool returnHeavyGoodsServices { get; set; }
+        public int dropOffAtFacilityIndicator { get; set; }
+        public int holdForPickupIndicator { get; set; }
     }
 }
 
