@@ -107,9 +107,9 @@ namespace ConsoleApp1
             var client = new RestClient("https://wwwcie.ups.com/ship/v1/shipments/transittimes");
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
-            request.AddHeader("AccessLicenseNumber", "CDA387C04F6A9C15");
-            request.AddHeader("Password", "Capgemini2021");
-            request.AddHeader("Username", "LucasProject");
+            request.AddHeader("AccessLicenseNumber", "key");
+            request.AddHeader("Password", "pass");
+            request.AddHeader("Username", "user");
             request.AddHeader("Accept", "application/json");
             request.AddHeader("transactionSrc", "transaction source");
             request.AddHeader("transId", "transaction id");
